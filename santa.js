@@ -1,4 +1,5 @@
 
+// A generator that never ends!
 const reindeerColorGenerator = function* () {
     let colorArray = ["Blue", "Red", "Orange", "Purple", "Brown", "Aquamarine", "Goldenrod", "Azure", "Fuchsia", "Chocolate", "Amaranth"]
     let colorIndex = 0
@@ -14,21 +15,10 @@ const reindeerColorFactory = reindeerColorGenerator()
 
 
 
-
-// Factory function that returns a reindeer object when it is invoked with a name
-const reindeerFactory = name => 
-     Object.create(null, {
-        "color": { value: reindeerColorFactory.next().value, enumerable: true },
-        "name": { value: name, enumerable: true }
-     })
-
-
-
-
 // loop over the reindeer names, and pass them to the factory function to create colored reindeer
 function colorReindeerArray(){
-    var reindeer = ["Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-    let coloredReindeer = []
+var reindeer = ["Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+let coloredReindeer = []
 
     for(let i=0; i < reindeer.length; i++){
         coloredReindeer.push(reindeerFactory(reindeer[i]))
@@ -38,6 +28,12 @@ function colorReindeerArray(){
     
 }
 
+let reindeerFactory = function (name) {
+    return Object.create(null, {
+        "color": { value: reindeerColorFactory.next().value, enumerable: true },
+        "name": { value: name, enumerable: true }
+    })
+}
 
 
 //print reindeer to the DOM
@@ -50,6 +46,8 @@ function reindeerToTheDOM(){
         let currentReindeer = coloredReindeer[i]
         reindeerToDom.innerHTML += 
         `<p style="color: ${currentReindeer.color};"> ${currentReindeer.color} ${currentReindeer.name}</p>`
+        
+        let x = 1
     }
 }
 reindeerToTheDOM();
